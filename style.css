@@ -306,6 +306,35 @@ footer {
 
 footer a { color: var(--gray-light); }
 
+/* === BLOG === */
+.blog-post {
+  border-bottom: 1px solid var(--navy-mid);
+  padding: 2rem 0;
+}
+
+.blog-post:last-child { border-bottom: none; }
+
+.blog-post .post-date {
+  color: var(--gray-dark);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-post h2 a { color: var(--white); }
+.blog-post h2 a:hover { color: var(--cyan); }
+
+.blog-post .post-preview {
+  color: var(--gray-light);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .hero h1 { font-size: 2.2rem; }
