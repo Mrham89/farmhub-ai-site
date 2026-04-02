@@ -1,4 +1,4 @@
-/* FarmHub AI — Dark Navy/Cyan Theme */
+/* AnImus Enterprises — Dark Navy/Cyan Theme */
 :root {
   --navy: #0d1117;
   --navy-light: #141e2a;
@@ -53,11 +53,11 @@ nav .nav-inner {
 nav .logo {
   font-size: 1.3rem;
   font-weight: 700;
-  color: var(--cyan);
+  color: var(--white);
   letter-spacing: -0.5px;
 }
 
-nav .logo span { color: var(--white); }
+nav .logo span { color: var(--cyan); }
 
 nav ul {
   list-style: none;
