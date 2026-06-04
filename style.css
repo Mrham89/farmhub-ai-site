@@ -27,6 +27,7 @@ body {
   color: var(--white);
   line-height: 1.7;
   font-size: 17px;
+  overflow-x: hidden;
 }
 
 a { color: var(--cyan); text-decoration: none; transition: color 0.2s; }
@@ -470,25 +471,18 @@ footer a { color: var(--gray-light); }
   box-shadow: 0 0 26px rgba(240,200,80,0.2), inset 0 0 18px rgba(240,200,80,0.07);
 }
 
-/* Argos perched on the "Labs" chip */
-.hero-stage .brandmark .argos-perch {
+/* Argos — free sprite that bounces around the hero, ricocheting off the
+   wordmark letters + walls (position driven by the bounce script in index.html) */
+.hero-stage .argos-figure {
   position: absolute;
-  left: 50%;
-  bottom: 100%;
-  transform: translateX(-50%);
-  width: clamp(64px, 11vw, 110px);
+  top: 0; left: 0;
+  width: clamp(175px, 27.5vw, 275px);
   height: auto;
-  margin-bottom: -9px;
-  filter: drop-shadow(0 0 16px rgba(34, 230, 198, 0.22));
-  animation: argos-perch-bob 5.5s ease-in-out infinite;
+  z-index: 2;
+  filter: drop-shadow(0 0 22px rgba(34, 230, 198, 0.28));
   pointer-events: none;
+  will-change: transform;
 }
-/* float that preserves the -50% centering on the Labs chip */
-@keyframes argos-perch-bob {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%      { transform: translateX(-50%) translateY(-9px); }
-}
-@media (prefers-reduced-motion: reduce) { .hero-stage .brandmark .argos-perch { animation: none; } }
 
 /* hero copy below terminal */
 .hero-stage .hero-copy { position: relative; z-index: 2; text-align: center; margin-top: 2.4rem; width: 100%; max-width: 720px; }
@@ -505,6 +499,7 @@ footer a { color: var(--gray-light); }
   .hero { min-height: 70vh; padding-top: 6rem; }
   section { padding: 3rem 1.5rem; }
   .hero-stage { min-height: 84vh; padding-top: 6rem; }
+  .hero-stage .brandmark .word { font-size: clamp(2.4rem, 11vw, 7.5rem); }
   .hero-stage .hero-copy h1 { font-size: 2rem; }
   .hero-stage .hero-copy h1 .dt-break { display: none; }
   .hero-stage .eyebrow { font-size: 0.75rem; letter-spacing: 2px; }

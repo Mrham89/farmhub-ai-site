@@ -42,11 +42,13 @@
   <span class="spark silver" style="top:38%; left:24%; animation-delay:1.7s;">&#10038;</span>
   <span class="spark silver" style="top:32%; left:90%; animation-delay:0.6s;">&#10022;</span>
 
-  <div class="hero-copy">
-    <div class="brandmark"><span class="word"><span class="ai" title="lambda — the symbol of computation">&#923;</span>n<span class="ai pink" title="pipe — the Unix pipe">|</span>mus</span><span class="labs">Labs<img src="argos.svg" class="argos-perch" alt="Argos, the AnImus Labs mascot, standing on the Labs badge"></span></div>
+  <img id="argos" class="argos-figure" src="argos.svg" alt="Argos, the AnImus Labs mascot">
 
-    <h1>Meet Argos &mdash; the AI sidekick <br class="dt-break">that <span class="highlight">runs on sunshine.</span></h1>
-    <p class="subtitle">Your team's AI &mdash; on your hardware, off the grid, off the cloud. Argos is a private AI that runs on solar power and answers only to your crew. No datacenter. No monthly bill. Your data never leaves the building.</p>
+  <div class="hero-copy">
+    <div class="brandmark"><span class="word"><span class="ai" title="lambda — the symbol of computation">&#923;</span>n<span class="ai pink" title="pipe — the Unix pipe">|</span>mus</span><span class="labs">Labs</span></div>
+
+    <h1>Private AI, <span class="highlight">powered by the sun.</span></h1>
+    <p class="subtitle">Clean-energy AI that runs on hardware you own. Your data never leaves the building &mdash; and there's no cloud bill or carbon bill to pay.</p>
     <div class="cta-row">
       <a href="#contact" class="btn btn-primary">Get in Touch</a>
       <a href="#services" class="btn btn-outline">See What We Do</a>
@@ -270,6 +272,84 @@
 <footer>
   <p>&copy; 2026 FarmHub LLC. All rights reserved. &nbsp;|&nbsp; Washington State &nbsp;|&nbsp; <a href="mailto:wafarmhub@gmail.com">wafarmhub@gmail.com</a></p>
 </footer>
+
+<!-- Argos bounce: free sprite ricocheting off the wordmark letters + hero walls -->
+<script>
+(function () {
+  var stage = document.querySelector('.hero-stage');
+  var argos = document.getElementById('argos');
+  var brand = document.querySelector('.brandmark');
+  if (!stage || !argos || !brand) return;
+  var word = brand.querySelector('.word');
+  var labs = brand.querySelector('.labs');
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var x = 24, y = 12, vx = 2.4, vy = 1.8, aw = 0, ah = 0, raf = 0;
+  var bounds = { right: 0, bottom: 0 };
+  var obstacles = [];
+
+  function toLocal(el, sb) {
+    var r = el.getBoundingClientRect();
+    return { left: r.left - sb.left, top: r.top - sb.top, right: r.right - sb.left, bottom: r.bottom - sb.top };
+  }
+
+  function measure() {
+    var sb = stage.getBoundingClientRect();
+    aw = argos.offsetWidth; ah = argos.offsetHeight;
+    bounds.right = sb.width;
+    bounds.bottom = sb.height;
+    obstacles = [];
+    if (word) obstacles.push(toLocal(word, sb));
+    if (labs) obstacles.push(toLocal(labs, sb));
+    if (x > bounds.right - aw) x = Math.max(0, bounds.right - aw);
+    if (y > bounds.bottom - ah) y = Math.max(0, bounds.bottom - ah);
+  }
+
+  function overlaps(nx, ny, r) {
+    return nx < r.right && nx + aw > r.left && ny < r.bottom && ny + ah > r.top;
+  }
+
+  function step() {
+    var nx = x + vx, ny = y + vy;
+    // walls
+    if (nx <= 0) { nx = 0; vx = Math.abs(vx); }
+    if (nx + aw >= bounds.right) { nx = bounds.right - aw; vx = -Math.abs(vx); }
+    if (ny <= 0) { ny = 0; vy = Math.abs(vy); }
+    if (ny + ah >= bounds.bottom) { ny = bounds.bottom - ah; vy = -Math.abs(vy); }
+    // letters — reflect on the axis of least penetration (minimum translation vector)
+    for (var i = 0; i < obstacles.length; i++) {
+      var r = obstacles[i];
+      if (!overlaps(nx, ny, r)) continue;
+      var penLeft = (nx + aw) - r.left, penRight = r.right - nx;
+      var penTop = (ny + ah) - r.top, penBottom = r.bottom - ny;
+      var minX = Math.min(penLeft, penRight), minY = Math.min(penTop, penBottom);
+      if (minX < minY) {
+        if (penLeft < penRight) { nx = r.left - aw; vx = -Math.abs(vx); }
+        else { nx = r.right; vx = Math.abs(vx); }
+      } else {
+        if (penTop < penBottom) { ny = r.top - ah; vy = -Math.abs(vy); }
+        else { ny = r.bottom; vy = Math.abs(vy); }
+      }
+    }
+    x = nx; y = ny;
+    argos.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + (vx * 2.4).toFixed(1) + 'deg)';
+    raf = requestAnimationFrame(step);
+  }
+
+  function start() {
+    measure();
+    if (!aw || !ah) { requestAnimationFrame(start); return; }
+    if (reduce) { x = (bounds.right - aw) / 2; y = 10; argos.style.transform = 'translate(' + x + 'px,' + y + 'px)'; return; }
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(step);
+  }
+
+  var rt;
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+  else window.addEventListener('load', start);
+})();
+</script>
 
 </body>
 </html>
