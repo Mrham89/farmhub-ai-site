@@ -6,7 +6,7 @@
   --cyan: #22e6c6;        /* primary accent (retro teal) */
   --cyan-dark: #14a89a;
   --pink: #ff3d9d;       /* secondary accent (retro pink) */
-  --gold: #f0c850;       /* glam accent (slight gold touch) */
+  --silver: #d2d9e4;       /* glam accent (silver trim) */
   --white: #ffffff;
   --gray-light: #b0b0b0;
   --gray-dark: #6a6a6a;
@@ -402,7 +402,7 @@ footer a { color: var(--gray-light); }
   pointer-events: none;
 }
 .hero-stage .spark.pink { color: var(--pink); }
-.hero-stage .spark.gold { color: var(--gold); }
+.hero-stage .spark.silver { color: var(--silver); }
 @keyframes twinkle { 0%,100% { opacity: 0.15; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.15); } }
 
 /* creative, glowing brand wordmark (the graphic centerpiece) */
@@ -422,18 +422,13 @@ footer a { color: var(--gray-light); }
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 28px rgba(34,230,198,0.45));
 }
-/* the hidden "AI" in AnImus — brighter cyan, extra glow */
+/* the hidden "AI" in AnImus — pink neon letters with a silver glam outline */
 .hero-stage .brandmark .word .ai {
-  -webkit-text-fill-color: #3df2d8;
-  color: #3df2d8;
-  text-shadow: 0 0 26px rgba(34,230,198,0.95);
-  padding: 0 0.04em;
-}
-/* the I (pipe) in pink to contrast the teal A (lambda) */
-.hero-stage .brandmark .word .ai.pink {
   -webkit-text-fill-color: var(--pink);
   color: var(--pink);
-  text-shadow: 0 0 26px rgba(255,61,157,0.9);
+  -webkit-text-stroke: 1.5px var(--silver);
+  text-shadow: 0 0 28px rgba(255,61,157,0.85);
+  padding: 0 0.06em;
 }
 /* "Labs" — a glowing monospace chip/badge (the computer-product touch) */
 .hero-stage .brandmark .labs {
@@ -441,12 +436,12 @@ footer a { color: var(--gray-light); }
   font-family: var(--font-mono);
   font-size: clamp(1rem, 3.2vw, 2rem);
   font-weight: 700; letter-spacing: 1.5px;
-  color: var(--gold);
-  background: rgba(240,200,80,0.08);
-  border: 1.5px solid rgba(240,200,80,0.55);
+  color: var(--silver);
+  background: rgba(210,217,228,0.08);
+  border: 1.5px solid rgba(210,217,228,0.55);
   border-radius: 10px;
   padding: 0.22em 0.5em;
-  box-shadow: 0 0 26px rgba(240,200,80,0.2), inset 0 0 18px rgba(240,200,80,0.07);
+  box-shadow: 0 0 26px rgba(210,217,228,0.2), inset 0 0 18px rgba(210,217,228,0.07);
 }
 
 /* hero copy below terminal */
