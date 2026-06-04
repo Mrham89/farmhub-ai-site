@@ -62,6 +62,15 @@ nav .logo {
 
 nav .logo span { color: var(--cyan); }
 
+nav .logo .logo-mark {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-top: -2px;
+  filter: drop-shadow(0 0 6px rgba(34, 230, 198, 0.35));
+}
+
 nav ul {
   list-style: none;
   display: flex;
@@ -448,6 +457,7 @@ footer a { color: var(--gray-light); }
 }
 /* "Labs" — a glowing monospace chip/badge (the computer-product touch) */
 .hero-stage .brandmark .labs {
+  position: relative;
   align-self: center;
   font-family: var(--font-mono);
   font-size: clamp(1rem, 3.2vw, 2rem);
@@ -460,8 +470,29 @@ footer a { color: var(--gray-light); }
   box-shadow: 0 0 26px rgba(240,200,80,0.2), inset 0 0 18px rgba(240,200,80,0.07);
 }
 
+/* Argos perched on the "Labs" chip */
+.hero-stage .brandmark .argos-perch {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  width: clamp(64px, 11vw, 110px);
+  height: auto;
+  margin-bottom: -9px;
+  filter: drop-shadow(0 0 16px rgba(34, 230, 198, 0.22));
+  animation: argos-perch-bob 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+/* float that preserves the -50% centering on the Labs chip */
+@keyframes argos-perch-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(-9px); }
+}
+@media (prefers-reduced-motion: reduce) { .hero-stage .brandmark .argos-perch { animation: none; } }
+
 /* hero copy below terminal */
-.hero-stage .hero-copy { position: relative; z-index: 2; text-align: center; margin-top: 2.4rem; max-width: 720px; }
+.hero-stage .hero-copy { position: relative; z-index: 2; text-align: center; margin-top: 2.4rem; width: 100%; max-width: 720px; }
+.hero-stage .hero-copy h1 { overflow-wrap: break-word; }
 .hero-stage .hero-copy h1 { font-size: 2.7rem; font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 1rem; }
 .hero-stage .hero-copy h1 .highlight { color: var(--cyan); }
 .hero-stage .hero-copy .subtitle { font-size: 1.2rem; color: var(--gray-light); margin: 0 auto 2rem; line-height: 1.6; }
@@ -475,5 +506,6 @@ footer a { color: var(--gray-light); }
   section { padding: 3rem 1.5rem; }
   .hero-stage { min-height: 84vh; padding-top: 6rem; }
   .hero-stage .hero-copy h1 { font-size: 2rem; }
+  .hero-stage .hero-copy h1 .dt-break { display: none; }
   .hero-stage .eyebrow { font-size: 0.75rem; letter-spacing: 2px; }
 }
