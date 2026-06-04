@@ -431,6 +431,21 @@ footer a { color: var(--gray-light); }
   text-shadow: 0 0 28px rgba(255,61,157,0.85);
   padding: 0 0.06em;
 }
+/* embed a small infinity ∞ in the apex negative-space of the lambda A */
+.hero-stage .brandmark .word .ai:not(.pink) { position: relative; }
+.hero-stage .brandmark .word .ai:not(.pink)::after {
+  content: "\221E";
+  position: absolute;
+  left: 50%; top: 60%;
+  transform: translate(-50%, -50%);
+  font-size: 0.30em;
+  font-weight: 700;
+  color: var(--gold);
+  -webkit-text-fill-color: var(--gold);
+  -webkit-text-stroke: 0;
+  text-shadow: 0 0 8px rgba(240,200,80,0.9);
+  pointer-events: none;
+}
 /* "Labs" — a glowing monospace chip/badge (the computer-product touch) */
 .hero-stage .brandmark .labs {
   align-self: center;
