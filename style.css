@@ -424,6 +424,7 @@ footer a { color: var(--gray-light); }
   -webkit-text-fill-color: #5cd3ff;
   color: #5cd3ff;
   text-shadow: 0 0 26px rgba(79,195,247,0.95);
+  padding: 0 0.04em;
 }
 /* "Labs" — a glowing monospace chip/badge (the computer-product touch) */
 .hero-stage .brandmark .labs {
