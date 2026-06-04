@@ -355,10 +355,11 @@ footer a { color: var(--gray-light); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
-  padding: 7rem 1.5rem 4rem;
-  background: radial-gradient(ellipse at 50% 28%, #16273b 0%, var(--navy) 68%);
+  /* big top pad = the "sky" Argos bounces in, above the wordmark */
+  padding: 15rem 1.5rem 5rem;
+  background: radial-gradient(ellipse at 50% 38%, #16273b 0%, var(--navy) 70%);
 }
 
 /* drifting star layers (parallax) */
@@ -498,7 +499,7 @@ footer a { color: var(--gray-light); }
   h2 { font-size: 1.8rem; }
   .hero { min-height: 70vh; padding-top: 6rem; }
   section { padding: 3rem 1.5rem; }
-  .hero-stage { min-height: 84vh; padding-top: 6rem; }
+  .hero-stage { min-height: 84vh; padding-top: 9rem; }
   .hero-stage .brandmark .word { font-size: clamp(2.4rem, 11vw, 7.5rem); }
   .hero-stage .hero-copy h1 { font-size: 2rem; }
   .hero-stage .hero-copy h1 .dt-break { display: none; }

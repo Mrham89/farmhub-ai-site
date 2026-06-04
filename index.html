@@ -47,7 +47,7 @@
   <div class="hero-copy">
     <div class="brandmark"><span class="word"><span class="ai" title="lambda — the symbol of computation">&#923;</span>n<span class="ai pink" title="pipe — the Unix pipe">|</span>mus</span><span class="labs">Labs</span></div>
 
-    <h1>Private AI, <span class="highlight">powered by the sun.</span></h1>
+    <h1>Local AI, <span class="highlight">powered by the sun.</span></h1>
     <p class="subtitle">Clean-energy AI that runs on hardware you own. Your data never leaves the building &mdash; and there's no cloud bill or carbon bill to pay.</p>
     <div class="cta-row">
       <a href="#contact" class="btn btn-primary">Get in Touch</a>
@@ -284,8 +284,8 @@
   var labs = brand.querySelector('.labs');
 
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var x = 24, y = 12, vx = 2.4, vy = 1.8, aw = 0, ah = 0, raf = 0;
-  var bounds = { right: 0, bottom: 0 };
+  var x = 24, y = 12, vx = 1.3, vy = 1.0, aw = 0, ah = 0, raf = 0;
+  var bounds = { top: 0, right: 0, bottom: 0 };
   var obstacles = [];
 
   function toLocal(el, sb) {
@@ -297,25 +297,39 @@
     var sb = stage.getBoundingClientRect();
     aw = argos.offsetWidth; ah = argos.offsetHeight;
     bounds.right = sb.width;
-    bounds.bottom = sb.height;
     obstacles = [];
     if (word) obstacles.push(toLocal(word, sb));
     if (labs) obstacles.push(toLocal(labs, sb));
+    // Keep Argos in the "sky" ABOVE the wordmark, bouncing down onto the
+    // letter-tops — never below the title over the copy. Floor = letter tops.
+    var topRef = word ? toLocal(word, sb).top : (sb.height * 0.4);
+    bounds.top = 0;
+    bounds.bottom = topRef + 20;
+    if (bounds.bottom - bounds.top < ah + 36) bounds.top = bounds.bottom - (ah + 36); // tiny top clip only if cramped
     if (x > bounds.right - aw) x = Math.max(0, bounds.right - aw);
-    if (y > bounds.bottom - ah) y = Math.max(0, bounds.bottom - ah);
+    if (y < bounds.top) y = bounds.top;
+    if (y > bounds.bottom - ah) y = bounds.bottom - ah;
   }
 
   function overlaps(nx, ny, r) {
     return nx < r.right && nx + aw > r.left && ny < r.bottom && ny + ah > r.top;
   }
 
+  // after a bounce, jog the angle + pick a new slow speed so each arc differs
+  function vary() {
+    var ang = Math.atan2(vy, vx) + (Math.random() - 0.5) * 0.5; // ~±14deg
+    var sp  = 0.7 + Math.random() * 0.7;                        // slow + varying: 0.7–1.4 px/frame
+    vx = Math.cos(ang) * sp;
+    vy = Math.sin(ang) * sp;
+  }
+
   function step() {
-    var nx = x + vx, ny = y + vy;
-    // walls
-    if (nx <= 0) { nx = 0; vx = Math.abs(vx); }
-    if (nx + aw >= bounds.right) { nx = bounds.right - aw; vx = -Math.abs(vx); }
-    if (ny <= 0) { ny = 0; vy = Math.abs(vy); }
-    if (ny + ah >= bounds.bottom) { ny = bounds.bottom - ah; vy = -Math.abs(vy); }
+    var nx = x + vx, ny = y + vy, hit = false;
+    // walls (ceiling = bounds.top, floor = letter-tops via bounds.bottom)
+    if (nx <= 0) { nx = 0; vx = Math.abs(vx); hit = true; }
+    if (nx + aw >= bounds.right) { nx = bounds.right - aw; vx = -Math.abs(vx); hit = true; }
+    if (ny <= bounds.top) { ny = bounds.top; vy = Math.abs(vy); hit = true; }
+    if (ny + ah >= bounds.bottom) { ny = bounds.bottom - ah; vy = -Math.abs(vy); hit = true; }
     // letters — reflect on the axis of least penetration (minimum translation vector)
     for (var i = 0; i < obstacles.length; i++) {
       var r = obstacles[i];
@@ -330,9 +344,11 @@
         if (penTop < penBottom) { ny = r.top - ah; vy = -Math.abs(vy); }
         else { ny = r.bottom; vy = Math.abs(vy); }
       }
+      hit = true;
     }
+    if (hit) vary();
     x = nx; y = ny;
-    argos.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + (vx * 2.4).toFixed(1) + 'deg)';
+    argos.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + (vx * 4).toFixed(1) + 'deg)';
     raf = requestAnimationFrame(step);
   }
 
