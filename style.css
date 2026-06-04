@@ -6,6 +6,7 @@
   --cyan: #22e6c6;        /* primary accent (retro teal) */
   --cyan-dark: #14a89a;
   --pink: #ff3d9d;       /* secondary accent (retro pink) */
+  --gold: #f0c850;       /* glam accent (slight gold touch) */
   --white: #ffffff;
   --gray-light: #b0b0b0;
   --gray-dark: #6a6a6a;
@@ -401,6 +402,7 @@ footer a { color: var(--gray-light); }
   pointer-events: none;
 }
 .hero-stage .spark.pink { color: var(--pink); }
+.hero-stage .spark.gold { color: var(--gold); }
 @keyframes twinkle { 0%,100% { opacity: 0.15; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.15); } }
 
 /* creative, glowing brand wordmark (the graphic centerpiece) */
@@ -439,12 +441,12 @@ footer a { color: var(--gray-light); }
   font-family: var(--font-mono);
   font-size: clamp(1rem, 3.2vw, 2rem);
   font-weight: 700; letter-spacing: 1.5px;
-  color: var(--cyan);
-  background: rgba(34,230,198,0.08);
-  border: 1.5px solid rgba(34,230,198,0.5);
+  color: var(--gold);
+  background: rgba(240,200,80,0.08);
+  border: 1.5px solid rgba(240,200,80,0.55);
   border-radius: 10px;
   padding: 0.22em 0.5em;
-  box-shadow: 0 0 26px rgba(34,230,198,0.18), inset 0 0 18px rgba(34,230,198,0.06);
+  box-shadow: 0 0 26px rgba(240,200,80,0.2), inset 0 0 18px rgba(240,200,80,0.07);
 }
 
 /* hero copy below terminal */
