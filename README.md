@@ -44,3 +44,9 @@ figures, client names, contracts, secrets, or anything from the private `FarmHub
    - **Subdomain only** (e.g. `www.` or `app.`): a single **CNAME** → `mrham89.github.io`.
 3. Add a `CNAME` file to this repo containing the chosen domain, AND set it in **Settings → Pages → Custom domain**.
 4. Tick **Enforce HTTPS** once the cert provisions.
+   - Domain front-runner: **`animuslabs.ai`** (on-brand for an AI lab); `animuslabs.io` cheaper. Avoid plain "Animus" — `animus.com` is an existing pentest firm (name collision).
+
+## Ideas / future dev
+- **"Bucket-bot" mascot** — an ORIGINAL flat-SVG robot (or chip-creature) hauling two buckets of glowing cyan "data" — the "your AI agents haul the work for you" metaphor. Use as a footer doodle / section icon / 404 art. **Must be original** (a robot, NOT a broom) — the Fantasia Sorcerer's-Apprentice broom-with-buckets is Disney-copyrighted and off-limits. Palette: navy/cyan/gold.
+- **Downloadable PDF one-pager** — generate from `Businees_Dev/marketing/animus_pentest_offer.md` via the AnImus MCP `bid_export` tool (pandoc in-container); link from `security.html` as a trust artifact.
+- **Sample (redacted) pentest report** download — strong credibility signal (the move animus.com uses).
