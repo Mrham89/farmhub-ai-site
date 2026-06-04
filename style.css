@@ -3,8 +3,9 @@
   --navy: #0d1117;
   --navy-light: #141e2a;
   --navy-mid: #1a2a3a;
-  --cyan: #4fc3f7;
-  --cyan-dark: #0288d1;
+  --cyan: #22e6c6;        /* primary accent (retro teal) */
+  --cyan-dark: #14a89a;
+  --pink: #ff3d9d;       /* secondary accent (retro pink) */
   --white: #ffffff;
   --gray-light: #b0b0b0;
   --gray-dark: #6a6a6a;
@@ -389,7 +390,7 @@ footer a { color: var(--gray-light); }
 }
 @keyframes drift { from { transform: translateY(0); } to { transform: translateY(50%); } }
 
-/* gold/cyan sparkles */
+/* pink/teal sparkles */
 .hero-stage .spark {
   position: absolute;
   z-index: 1;
@@ -399,7 +400,7 @@ footer a { color: var(--gray-light); }
   animation: twinkle 3.2s ease-in-out infinite;
   pointer-events: none;
 }
-.hero-stage .spark.gold { color: #ffd166; }
+.hero-stage .spark.pink { color: var(--pink); }
 @keyframes twinkle { 0%,100% { opacity: 0.15; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.15); } }
 
 /* creative, glowing brand wordmark (the graphic centerpiece) */
@@ -414,17 +415,23 @@ footer a { color: var(--gray-light); }
 .hero-stage .brandmark .word {
   font-size: clamp(3.6rem, 13vw, 7.5rem);
   font-weight: 800; letter-spacing: -2.5px;
-  background: linear-gradient(180deg, #ffffff 0%, #cdeeff 52%, var(--cyan) 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #b8fff3 52%, var(--cyan) 100%);
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 28px rgba(79,195,247,0.45));
+  filter: drop-shadow(0 0 28px rgba(34,230,198,0.45));
 }
 /* the hidden "AI" in AnImus — brighter cyan, extra glow */
 .hero-stage .brandmark .word .ai {
-  -webkit-text-fill-color: #5cd3ff;
-  color: #5cd3ff;
-  text-shadow: 0 0 26px rgba(79,195,247,0.95);
+  -webkit-text-fill-color: #3df2d8;
+  color: #3df2d8;
+  text-shadow: 0 0 26px rgba(34,230,198,0.95);
   padding: 0 0.04em;
+}
+/* the I (pipe) in pink to contrast the teal A (lambda) */
+.hero-stage .brandmark .word .ai.pink {
+  -webkit-text-fill-color: var(--pink);
+  color: var(--pink);
+  text-shadow: 0 0 26px rgba(255,61,157,0.9);
 }
 /* "Labs" — a glowing monospace chip/badge (the computer-product touch) */
 .hero-stage .brandmark .labs {
@@ -433,11 +440,11 @@ footer a { color: var(--gray-light); }
   font-size: clamp(1rem, 3.2vw, 2rem);
   font-weight: 700; letter-spacing: 1.5px;
   color: var(--cyan);
-  background: rgba(79,195,247,0.08);
-  border: 1.5px solid rgba(79,195,247,0.5);
+  background: rgba(34,230,198,0.08);
+  border: 1.5px solid rgba(34,230,198,0.5);
   border-radius: 10px;
   padding: 0.22em 0.5em;
-  box-shadow: 0 0 26px rgba(79,195,247,0.18), inset 0 0 18px rgba(79,195,247,0.06);
+  box-shadow: 0 0 26px rgba(34,230,198,0.18), inset 0 0 18px rgba(34,230,198,0.06);
 }
 
 /* hero copy below terminal */
