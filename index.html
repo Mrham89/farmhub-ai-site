@@ -318,6 +318,13 @@
       len: 6 + Math.random() * 9, ph: Math.random() * 6.28, ang: 0
     });
   }
+  // the light rests on the title by default, so the swarm gathers around it
+  function titleCenter() {
+    var b = stage.querySelector('.brandmark');
+    if (!b) return { x: W * 0.5, y: H * 0.44 };
+    var sr = stage.getBoundingClientRect(), br = b.getBoundingClientRect();
+    return { x: br.left - sr.left + br.width / 2, y: br.top - sr.top + br.height / 2 };
+  }
   function resize() {
     var r = stage.getBoundingClientRect();
     W = r.width; H = r.height; DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -326,7 +333,7 @@
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     var n = Math.round(Math.min(120, Math.max(36, W * H / 15000)));
     if (cells.length !== n) seed(n);
-    if (!light.has) { light.tx = W * 0.5; light.ty = H * 0.42; light.x = light.tx; light.y = light.ty; }
+    if (!light.has) { var c0 = titleCenter(); light.tx = c0.x; light.ty = c0.y; light.x = c0.x; light.y = c0.y; }
   }
   stage.addEventListener('pointermove', function (e) {
     var r = stage.getBoundingClientRect();
@@ -337,8 +344,9 @@
   function frame() {
     t += 0.016; idle++;
     if (!light.has || idle > 200) {
-      light.tx = W * 0.5 + Math.cos(t * 0.5) * W * 0.22;
-      light.ty = H * 0.42 + Math.sin(t * 0.7) * H * 0.16;
+      var c = titleCenter();
+      light.tx = c.x + Math.cos(t * 0.5) * Math.min(W * 0.12, 120);
+      light.ty = c.y + Math.sin(t * 0.7) * Math.min(H * 0.07, 55);
     }
     light.x += (light.tx - light.x) * 0.06;
     light.y += (light.ty - light.y) * 0.06;

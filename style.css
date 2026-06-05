@@ -351,13 +351,15 @@ footer a { color: var(--gray-light); }
 /* === TERMINAL + STARFIELD HERO === */
 .hero-stage {
   position: relative;
-  min-height: 94vh;
+  height: 100vh;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 7rem 1.5rem 4rem;
+  /* extra bottom padding lifts the title into the upper-center, seen on open */
+  padding: 5rem 1.5rem 9rem;
   background: radial-gradient(ellipse at 50% 42%, #0e2436 0%, var(--navy) 72%);
 }
 
@@ -543,6 +545,17 @@ footer a { color: var(--gray-light); }
 
 /* hero copy below terminal */
 .hero-stage .hero-copy { position: relative; z-index: 2; text-align: center; margin-top: 0; width: 100%; max-width: 720px; }
+/* glow halo so the cursor-light visibly "enlightens" the title */
+.hero-stage .hero-copy::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 46%;
+  transform: translate(-50%, -50%);
+  width: 130%; height: 150%;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(34, 230, 198, 0.18) 0%, rgba(34, 230, 198, 0) 62%);
+  pointer-events: none;
+}
 .hero-stage .hero-copy h1 { overflow-wrap: break-word; }
 .hero-stage .hero-copy h1 { font-size: 2.7rem; font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 1rem; }
 .hero-stage .hero-copy h1 .highlight { color: var(--cyan); }
