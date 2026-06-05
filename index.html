@@ -297,6 +297,49 @@
 
 <!-- Navicula: living agent-swarm sea + Argos the guide + the ROI sandbox -->
 <script>
+/* ===== 0. Living Twin — per-prospect personalization from one ?t= blob =====
+   Pure function of the URL. Absent/corrupt blob => __TWIN stays null and the
+   page renders as the generic homepage. Never STATES a sourced fact; only
+   greets by name + pre-fills editable estimates. All values clamped/sanitized. */
+(function () {
+  window.__TWIN = null;
+  try {
+    var p = new URLSearchParams(location.search).get('t');
+    if (!p) return;
+    var b64 = p.replace(/-/g, '+').replace(/_/g, '/');
+    while (b64.length % 4) b64 += '=';
+    var raw = decodeURIComponent(escape(atob(b64)));   // UTF-8 safe
+    var d = JSON.parse(raw);
+    if (!d || typeof d !== 'object') return;
+    var clampInt = function (v, lo, hi, dflt) {
+      v = parseInt(v, 10); if (isNaN(v)) return dflt;
+      return Math.max(lo, Math.min(hi, v));
+    };
+    var name = (typeof d.c === 'string') ? d.c.slice(0, 60).replace(/[<>]/g, '').trim() : '';
+    window.__TWIN = Object.freeze({
+      company: name || '',
+      team:    ('tm' in d) ? clampInt(d.tm, 3, 300, null) : null,  // ROI: team using AI
+      use:     ('u'  in d) ? clampInt(d.u, 1, 4, null)    : null,  // ROI: usage intensity 1-4
+      growth:  ('g'  in d) ? clampInt(d.g, 10, 50, null)  : null   // ROI: growth ×10 (slider form)
+    });
+  } catch (e) { window.__TWIN = null; }   // any corruption -> generic homepage
+
+  // Hero headline personalization (textContent-safe; never markup from the blob)
+  try {
+    var T = window.__TWIN;
+    if (T && T.company) {
+      var h1 = document.querySelector('.hero-copy h1');
+      if (h1 && !document.querySelector('.twin-hello')) {
+        var hello = document.createElement('p');
+        hello.className = 'twin-hello';
+        hello.setAttribute('style', 'font-size:1.05rem;color:#22e6c6;margin:0 0 .5rem;font-weight:600;letter-spacing:.01em;');
+        hello.textContent = 'Built for the team at ' + T.company;
+        h1.parentNode.insertBefore(hello, h1);
+      }
+    }
+  } catch (e) {}
+})();
+
 /* ===== 1. Living Navicula sea — cursor = sunlight, each speck an agent ===== */
 (function () {
   var cv = document.getElementById('navicula-sea');
@@ -414,7 +457,14 @@
 
   function say(html) { bubble.innerHTML = html; bubble.classList.add('show'); }
 
-  setTimeout(function () { say("Hi — I'm Argos. Shine your cursor on the sea ☀ then hit <b>Start</b>."); }, 1200);
+  setTimeout(function () {
+    var T = window.__TWIN;
+    if (T && T.company) {
+      say("Hi " + T.company + " — I'm Argos. I lit up the sea for you ☀ shine your cursor on it, then hit <b>Start</b> — I pre-ran your numbers below.");
+    } else {
+      say("Hi — I'm Argos. Shine your cursor on the sea ☀ then hit <b>Start</b>.");
+    }
+  }, 1200);
 
   var TOUR = {
     'services':     "Four ways we build your edge — pick one to dive in.",
@@ -497,6 +547,13 @@
   }
   [team, use, growth].forEach(function (el) { el.addEventListener('input', render); });
   window.addEventListener('resize', function () { clearTimeout(window.__rrz); window.__rrz = setTimeout(render, 150); });
+  // Living Twin: pre-fill the sliders with the prospect's numbers before the first paint
+  (function () {
+    var T = window.__TWIN; if (!T) return;
+    if (T.team   != null) team.value   = T.team;
+    if (T.use    != null) use.value    = T.use;
+    if (T.growth != null) growth.value = T.growth;
+  })();
   render();
 })();
 </script>
