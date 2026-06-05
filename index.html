@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AnImus Labs — Private AI Engineering &amp; Security for Small Companies</title>
-  <meta name="description" content="A private-AI engineering lab. We design, build, and secure AI that runs on hardware you own — air-gapped, no cloud dependency, your data never leaves your network. Plus independent web & API penetration testing. Washington State.">
+  <title>Navicula Labs — Local AI That Makes Your Team Faster, Without the Cloud Bill</title>
+  <meta name="description" content="Navicula builds private, solar-powered AI that runs on hardware you own — augmenting the team you already have. No metered cloud bill that grows every time they use it. Plus independent web & API penetration testing. Washington State.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -15,7 +15,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="logo"><img src="argos-mark.svg" class="logo-mark" alt="Argos"><span>A</span>n<span>I</span>mus Labs</a>
+    <a href="index.html" class="logo"><img src="argos-mark.svg" class="logo-mark" alt="Argos">n<span>A</span>v<span>I</span>cula Labs</a>
     <button class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('open')">&#9776;</button>
     <ul>
       <li><a href="#services">Services</a></li>
@@ -28,30 +28,24 @@
   </div>
 </nav>
 
-<!-- HERO: terminal + starfield -->
-<div class="hero-stage">
-  <div class="stars"></div>
-  <div class="stars2"></div>
-  <div class="stars3"></div>
-  <span class="spark" style="top:16%; left:13%;">&#10022;</span>
-  <span class="spark pink" style="top:24%; left:80%; animation-delay:0.8s;">&#10038;</span>
-  <span class="spark" style="top:70%; left:9%; animation-delay:1.4s;">&#10038;</span>
-  <span class="spark pink" style="top:74%; left:86%; animation-delay:0.4s;">&#10022;</span>
-  <span class="spark" style="top:12%; left:58%; animation-delay:2s;">&#10038;</span>
-  <span class="spark pink" style="top:60%; left:70%; animation-delay:1.1s;">&#10022;</span>
-  <span class="spark silver" style="top:38%; left:24%; animation-delay:1.7s;">&#10038;</span>
-  <span class="spark silver" style="top:32%; left:90%; animation-delay:0.6s;">&#10022;</span>
+<!-- HERO: living Navicula sea — an agent swarm you light with your cursor, guided by Argos -->
+<div class="hero-stage" id="hero-stage">
+  <canvas id="navicula-sea"></canvas>
 
-  <img id="argos" class="argos-figure" src="argos.svg" alt="Argos, the AnImus Labs mascot">
+  <!-- Argos: the keeper who carries the light and guides the visitor to value -->
+  <div id="argos-guide" class="argos-guide">
+    <div class="argos-bubble" id="argos-bubble"></div>
+    <img id="argos" class="argos-figure" src="argos.svg" alt="Argos, the Navicula keeper and your guide">
+  </div>
 
   <div class="hero-copy">
-    <div class="brandmark"><span class="word"><span class="ai" title="lambda — the symbol of computation">&#923;</span>n<span class="ai pink" title="pipe — the Unix pipe">|</span>mus</span><span class="labs">Labs</span></div>
+    <div class="brandmark"><span class="word">n<span class="ai pink" title="the hidden AI">A</span>v<span class="ai pink" title="the hidden AI">I</span>cula</span><span class="labs">Labs</span></div>
 
     <h1>Local AI, <span class="highlight">powered by the sun.</span></h1>
-    <p class="subtitle">Clean-energy AI that runs on hardware you own. Your data never leaves the building &mdash; and there's no cloud bill or carbon bill to pay.</p>
+    <p class="subtitle">Private AI that runs on hardware you own and makes the team you already have faster &mdash; with no metered cloud bill that grows every time they use it.</p>
+    <p class="hero-caption"><span class="dot"></span> Move your cursor &mdash; that's sunlight. Every speck is an autonomous agent, no central brain. <strong>This is what local, distributed AI looks like.</strong></p>
     <div class="cta-row">
-      <a href="#contact" class="btn btn-primary">Get in Touch</a>
-      <a href="#services" class="btn btn-outline">See What We Do</a>
+      <button type="button" class="btn btn-primary btn-xl" id="start-journey">Start the Experience &rarr;</button>
     </div>
   </div>
 </div>
@@ -112,6 +106,34 @@
       <p>Solar-powered sensor platform for livestock and crop monitoring. Real-time data over long-range radio, AI-powered health alerts, and automated environmental control. No Wi-Fi needed.</p>
       <a href="farmhub-iot.html" class="learn-more">Learn more &rarr;</a>
     </div>
+  </div>
+</section>
+
+<!-- ROI SANDBOX: The AI Bill Trap -->
+<section id="roi" class="roi-section">
+  <p class="section-label">Run the Numbers</p>
+  <h2>The AI Bill Trap</h2>
+  <p class="section-desc">Commercial AI agents charge by usage &mdash; so the bill <em>grows every time your team actually uses it.</em> Local AI you own is a one-time build that runs flat forever. Move the sliders and watch.</p>
+
+  <div class="roi-wrap">
+    <div class="roi-controls">
+      <label>Team using AI <span class="roi-out" id="roi-team-out">25 people</span>
+        <input type="range" id="roi-team" min="3" max="300" value="25" step="1"></label>
+      <label>How hard they use it <span class="roi-out" id="roi-use-out">Heavy</span>
+        <input type="range" id="roi-use" min="1" max="4" value="3" step="1"></label>
+      <label>Adoption growth over 3 yrs <span class="roi-out" id="roi-growth-out">2.5&times;</span>
+        <input type="range" id="roi-growth" min="10" max="50" value="25" step="1"></label>
+    </div>
+
+    <div class="roi-viz">
+      <canvas id="roi-chart"></canvas>
+      <div class="roi-result" id="roi-result"></div>
+    </div>
+  </div>
+
+  <p class="roi-punch">Same productivity lift for your team &mdash; <span class="highlight">without the meter.</span></p>
+  <div class="cta-row" style="justify-content:center; margin-top:1.5rem;">
+    <a href="#contact" class="btn btn-primary">Get this built for your team</a>
   </div>
 </section>
 
@@ -270,100 +292,204 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 FarmHub LLC. All rights reserved. &nbsp;|&nbsp; Washington State &nbsp;|&nbsp; <a href="mailto:wafarmhub@gmail.com">wafarmhub@gmail.com</a></p>
+  <p>&copy; 2026 Navicula Labs &middot; FarmHub LLC. All rights reserved. &nbsp;|&nbsp; Washington State &nbsp;|&nbsp; <a href="mailto:wafarmhub@gmail.com">wafarmhub@gmail.com</a></p>
 </footer>
 
-<!-- Argos bounce: free sprite ricocheting off the wordmark letters + hero walls -->
+<!-- Navicula: living agent-swarm sea + Argos the guide + the ROI sandbox -->
 <script>
+/* ===== 1. Living Navicula sea — cursor = sunlight, each speck an agent ===== */
 (function () {
-  var stage = document.querySelector('.hero-stage');
-  var argos = document.getElementById('argos');
-  var brand = document.querySelector('.brandmark');
-  if (!stage || !argos || !brand) return;
-  var word = brand.querySelector('.word');
-  var labs = brand.querySelector('.labs');
-
+  var cv = document.getElementById('navicula-sea');
+  var stage = document.getElementById('hero-stage');
+  var guide = document.getElementById('argos-guide');
+  if (!cv || !stage) return;
+  var ctx = cv.getContext('2d');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var x = 24, y = 12, vx = 1.3, vy = 1.0, aw = 0, ah = 0, raf = 0;
-  var bounds = { top: 0, right: 0, bottom: 0 };
-  var obstacles = [];
+  var W = 0, H = 0, DPR = 1, cells = [], t = 0, raf = 0, idle = 0;
+  var light = { x: 0, y: 0, tx: 0, ty: 0, has: false };
+  var gx = 0, gy = 0;
+  window.__journey = false;
 
-  function toLocal(el, sb) {
-    var r = el.getBoundingClientRect();
-    return { left: r.left - sb.left, top: r.top - sb.top, right: r.right - sb.left, bottom: r.bottom - sb.top };
+  function seed(n) {
+    cells = [];
+    for (var i = 0; i < n; i++) cells.push({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+      len: 6 + Math.random() * 9, ph: Math.random() * 6.28, ang: 0
+    });
   }
-
-  function measure() {
-    var sb = stage.getBoundingClientRect();
-    aw = argos.offsetWidth; ah = argos.offsetHeight;
-    bounds.right = sb.width;
-    obstacles = [];
-    if (word) obstacles.push(toLocal(word, sb));
-    if (labs) obstacles.push(toLocal(labs, sb));
-    // Keep Argos in the "sky" ABOVE the wordmark, bouncing down onto the
-    // letter-tops — never below the title over the copy. Floor = letter tops.
-    var topRef = word ? toLocal(word, sb).top : (sb.height * 0.4);
-    bounds.top = 0;
-    bounds.bottom = topRef + 20;
-    if (bounds.bottom - bounds.top < ah + 36) bounds.top = bounds.bottom - (ah + 36); // tiny top clip only if cramped
-    if (x > bounds.right - aw) x = Math.max(0, bounds.right - aw);
-    if (y < bounds.top) y = bounds.top;
-    if (y > bounds.bottom - ah) y = bounds.bottom - ah;
+  function resize() {
+    var r = stage.getBoundingClientRect();
+    W = r.width; H = r.height; DPR = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = W * DPR; cv.height = H * DPR;
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    var n = Math.round(Math.min(120, Math.max(36, W * H / 15000)));
+    if (cells.length !== n) seed(n);
+    if (!light.has) { light.tx = W * 0.5; light.ty = H * 0.42; light.x = light.tx; light.y = light.ty; }
   }
+  stage.addEventListener('pointermove', function (e) {
+    var r = stage.getBoundingClientRect();
+    light.tx = e.clientX - r.left; light.ty = e.clientY - r.top; light.has = true; idle = 0;
+  });
+  stage.addEventListener('pointerleave', function () { light.has = false; });
 
-  function overlaps(nx, ny, r) {
-    return nx < r.right && nx + aw > r.left && ny < r.bottom && ny + ah > r.top;
-  }
-
-  // after a bounce, jog the angle + pick a new slow speed so each arc differs
-  function vary() {
-    var ang = Math.atan2(vy, vx) + (Math.random() - 0.5) * 0.5; // ~±14deg
-    var sp  = 0.7 + Math.random() * 0.7;                        // slow + varying: 0.7–1.4 px/frame
-    vx = Math.cos(ang) * sp;
-    vy = Math.sin(ang) * sp;
-  }
-
-  function step() {
-    var nx = x + vx, ny = y + vy, hit = false;
-    // walls (ceiling = bounds.top, floor = letter-tops via bounds.bottom)
-    if (nx <= 0) { nx = 0; vx = Math.abs(vx); hit = true; }
-    if (nx + aw >= bounds.right) { nx = bounds.right - aw; vx = -Math.abs(vx); hit = true; }
-    if (ny <= bounds.top) { ny = bounds.top; vy = Math.abs(vy); hit = true; }
-    if (ny + ah >= bounds.bottom) { ny = bounds.bottom - ah; vy = -Math.abs(vy); hit = true; }
-    // letters — reflect on the axis of least penetration (minimum translation vector)
-    for (var i = 0; i < obstacles.length; i++) {
-      var r = obstacles[i];
-      if (!overlaps(nx, ny, r)) continue;
-      var penLeft = (nx + aw) - r.left, penRight = r.right - nx;
-      var penTop = (ny + ah) - r.top, penBottom = r.bottom - ny;
-      var minX = Math.min(penLeft, penRight), minY = Math.min(penTop, penBottom);
-      if (minX < minY) {
-        if (penLeft < penRight) { nx = r.left - aw; vx = -Math.abs(vx); }
-        else { nx = r.right; vx = Math.abs(vx); }
-      } else {
-        if (penTop < penBottom) { ny = r.top - ah; vy = -Math.abs(vy); }
-        else { ny = r.bottom; vy = Math.abs(vy); }
-      }
-      hit = true;
+  function frame() {
+    t += 0.016; idle++;
+    if (!light.has || idle > 200) {
+      light.tx = W * 0.5 + Math.cos(t * 0.5) * W * 0.22;
+      light.ty = H * 0.42 + Math.sin(t * 0.7) * H * 0.16;
     }
-    if (hit) vary();
-    x = nx; y = ny;
-    argos.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + (vx * 4).toFixed(1) + 'deg)';
-    raf = requestAnimationFrame(step);
-  }
+    light.x += (light.tx - light.x) * 0.06;
+    light.y += (light.ty - light.y) * 0.06;
 
-  function start() {
-    measure();
-    if (!aw || !ah) { requestAnimationFrame(start); return; }
-    if (reduce) { x = (bounds.right - aw) / 2; y = 10; argos.style.transform = 'translate(' + x + 'px,' + y + 'px)'; return; }
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(step);
-  }
+    ctx.clearRect(0, 0, W, H);
+    var g = ctx.createRadialGradient(light.x, light.y, 0, light.x, light.y, 220);
+    g.addColorStop(0, 'rgba(34,230,198,0.18)'); g.addColorStop(1, 'rgba(34,230,198,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
 
-  var rt;
-  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 150); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
-  else window.addEventListener('load', start);
+    for (var i = 0; i < cells.length; i++) {
+      var c = cells[i];
+      var dx = light.x - c.x, dy = light.y - c.y, d = Math.sqrt(dx * dx + dy * dy) + 0.01;
+      var lit = Math.max(0, 1 - d / 330);
+      var pull = 0.012 * (0.3 + lit);
+      c.vx += dx / d * pull; c.vy += dy / d * pull;
+      c.vx += Math.cos(c.ph + t) * 0.004; c.vy += Math.sin(c.ph + t * 0.9) * 0.004;
+      c.vx *= 0.97; c.vy *= 0.97;
+      var sp = Math.sqrt(c.vx * c.vx + c.vy * c.vy), max = 0.4 + lit * 1.5;
+      if (sp > max) { c.vx = c.vx / sp * max; c.vy = c.vy / sp * max; }
+      c.x += c.vx; c.y += c.vy; c.ang = Math.atan2(c.vy, c.vx);
+      if (c.x < -20) c.x = W + 20; if (c.x > W + 20) c.x = -20;
+      if (c.y < -20) c.y = H + 20; if (c.y > H + 20) c.y = -20;
+      var glow = 0.22 + lit * 0.78;
+      ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.ang);
+      ctx.beginPath(); ctx.ellipse(0, 0, c.len, c.len * 0.34, 0, 0, 6.2832);
+      ctx.fillStyle = 'rgba(' + Math.round(120 + 130 * lit) + ',235,' + Math.round(205 + 30 * lit) + ',' + (0.12 + 0.5 * glow) + ')';
+      ctx.shadowColor = 'rgba(34,230,198,' + (0.6 * lit) + ')'; ctx.shadowBlur = 12 * lit;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.strokeStyle = 'rgba(220,255,250,' + (0.12 + 0.4 * lit) + ')'; ctx.lineWidth = 0.6;
+      ctx.beginPath(); ctx.moveTo(-c.len * 0.8, 0); ctx.lineTo(c.len * 0.8, 0); ctx.stroke();
+      ctx.restore();
+    }
+
+    if (guide && !window.__journey) {
+      var gw = guide.offsetWidth, gh = guide.offsetHeight;
+      var tx = light.x - gw / 2, ty = light.y - gh + 12;
+      gx += (tx - gx) * 0.07; gy += (ty - gy) * 0.07;
+      guide.style.transform = 'translate(' + gx.toFixed(1) + 'px,' + gy.toFixed(1) + 'px)';
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  function staticRender() {
+    resize(); ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < cells.length; i++) {
+      var c = cells[i];
+      ctx.save(); ctx.translate(c.x, c.y);
+      ctx.beginPath(); ctx.ellipse(0, 0, c.len, c.len * 0.34, 0, 0, 6.2832);
+      ctx.fillStyle = 'rgba(120,230,210,0.28)'; ctx.fill(); ctx.restore();
+    }
+    if (guide) guide.style.transform = 'translate(' + (W * 0.5 - guide.offsetWidth / 2) + 'px,' + (H * 0.3) + 'px)';
+  }
+  window.addEventListener('resize', function () { clearTimeout(window.__nrz); window.__nrz = setTimeout(resize, 150); });
+  resize();
+  if (reduce) staticRender();
+  else { gx = W * 0.5; gy = H * 0.3; raf = requestAnimationFrame(frame); }
+})();
+
+/* ===== 2. Argos the guide — greeting, the single-CTA journey, section bubbles ===== */
+(function () {
+  var guide = document.getElementById('argos-guide');
+  var bubble = document.getElementById('argos-bubble');
+  var start = document.getElementById('start-journey');
+  if (!guide || !bubble) return;
+
+  function say(html) { bubble.innerHTML = html; bubble.classList.add('show'); }
+
+  setTimeout(function () { say("Hi — I'm Argos. Shine your cursor on the sea ☀ then hit <b>Start</b>."); }, 1200);
+
+  var TOUR = {
+    'services':     "Four ways we build your edge — pick one to dive in.",
+    'roi':          "Drag these sliders — watch the cloud bill climb while your own AI stays flat.",
+    'how-it-works': "From a conversation to a running AI lab in weeks.",
+    'about':        "Built by one engineer, not a sales team.",
+    'contact':      "Ready when you are — let's talk about your team."
+  };
+
+  function beginJourney() {
+    if (window.__journey) return;
+    window.__journey = true;
+    guide.classList.add('fixed');
+    say("Follow me — I'll show you what matters. ↓");
+    var roi = document.getElementById('roi');
+    if (roi) roi.scrollIntoView({ behavior: 'smooth' });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (ents) {
+        ents.forEach(function (e) { if (e.isIntersecting && TOUR[e.target.id]) say(TOUR[e.target.id]); });
+      }, { threshold: 0.4 });
+      Object.keys(TOUR).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+    }
+  }
+  if (start) start.addEventListener('click', beginJourney);
+})();
+
+/* ===== 3. ROI sandbox — "The AI Bill Trap" (deterministic, editable constants) ===== */
+(function () {
+  var team = document.getElementById('roi-team'),
+      use = document.getElementById('roi-use'),
+      growth = document.getElementById('roi-growth'),
+      cv = document.getElementById('roi-chart');
+  if (!team || !cv) return;
+  var ctx = cv.getContext('2d');
+  var USE_LABELS = ['', 'Light', 'Moderate', 'Heavy', 'Agentic'];
+  var USE_PP = [0, 15, 50, 120, 300]; // $/person/month on commercial AI, by intensity
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+
+  function calc() {
+    var T = +team.value, U = +use.value, G = +growth.value / 10; // 1.0–5.0x growth
+    var pp = USE_PP[U], series = [], cum = 0;
+    for (var m = 1; m <= 36; m++) { cum += T * pp * (1 + (G - 1) * (m / 36)); series.push(cum); }
+    var rig = 4000 + Math.ceil(T / 25) * 2500 + (U >= 3 ? 1500 : 0);
+    var cross = 0;
+    for (var k = 0; k < series.length; k++) { if (series[k] >= rig) { cross = k + 1; break; } }
+    return { T: T, U: U, G: G, series: series, rig: rig, cross: cross, comm: series[35] };
+  }
+  function draw(d) {
+    var w = cv.clientWidth, h = 240, DPR = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = w * DPR; cv.height = h * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var pad = 36, max = Math.max(d.comm, d.rig) * 1.1 || 1;
+    var X = function (m) { return pad + (w - pad - 10) * (m / 36); };
+    var Y = function (v) { return h - 24 - (h - 38) * (v / max); };
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad, h - 24); ctx.lineTo(w - 10, h - 24); ctx.stroke();
+    ctx.strokeStyle = '#22e6c6'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(X(0), Y(d.rig)); ctx.lineTo(X(36), Y(d.rig)); ctx.stroke();
+    ctx.strokeStyle = '#ff3d9d'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(X(0), Y(0));
+    for (var m = 1; m <= 36; m++) ctx.lineTo(X(m), Y(d.series[m - 1]));
+    ctx.stroke();
+    if (d.cross) { ctx.fillStyle = '#f0c850'; ctx.beginPath(); ctx.arc(X(d.cross), Y(d.rig), 4, 0, 6.2832); ctx.fill(); }
+    ctx.font = '600 12px Inter,sans-serif';
+    ctx.fillStyle = '#ff3d9d'; ctx.fillText('Commercial AI bill', pad + 4, 16);
+    ctx.fillStyle = '#22e6c6'; ctx.fillText('Your local rig (flat)', pad + 4, 32);
+    ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.font = '11px Inter,sans-serif';
+    ctx.fillText('now', pad - 6, h - 9); ctx.fillText('3 yrs', w - 34, h - 9);
+  }
+  function render() {
+    var d = calc();
+    document.getElementById('roi-team-out').textContent = d.T + ' people';
+    document.getElementById('roi-use-out').textContent = USE_LABELS[d.U] + (d.U >= 4 ? ' (10–100× tokens)' : '');
+    document.getElementById('roi-growth-out').textContent = d.G.toFixed(1) + '×';
+    draw(d);
+    var save = d.comm - d.rig;
+    document.getElementById('roi-result').innerHTML =
+      '<p>Commercial AI, 3-yr total: <span class="warn">' + fmt(d.comm) + ' and climbing</span> — the bill rises every month your team leans in.</p>' +
+      '<p>Your local rig: <span class="big">' + fmt(d.rig) + '</span> one-time' + (d.cross ? ', pays for itself in <b>' + d.cross + ' months</b>' : '') + '. Solar after that — effectively free.</p>' +
+      (save > 0 ? '<p>You keep <span class="big">' + fmt(save) + '</span> over 3 years.</p>' : '');
+  }
+  [team, use, growth].forEach(function (el) { el.addEventListener('input', render); });
+  window.addEventListener('resize', function () { clearTimeout(window.__rrz); window.__rrz = setTimeout(render, 150); });
+  render();
 })();
 </script>
 

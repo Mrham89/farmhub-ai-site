@@ -355,11 +355,17 @@ footer a { color: var(--gray-light); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
-  /* big top pad = the "sky" Argos bounces in, above the wordmark */
-  padding: 15rem 1.5rem 5rem;
-  background: radial-gradient(ellipse at 50% 38%, #16273b 0%, var(--navy) 70%);
+  padding: 7rem 1.5rem 4rem;
+  background: radial-gradient(ellipse at 50% 42%, #0e2436 0%, var(--navy) 72%);
+}
+
+/* the living Navicula sea — agent swarm canvas behind the copy */
+.hero-stage #navicula-sea {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0; display: block;
 }
 
 /* drifting star layers (parallax) */
@@ -472,21 +478,71 @@ footer a { color: var(--gray-light); }
   box-shadow: 0 0 26px rgba(240,200,80,0.2), inset 0 0 18px rgba(240,200,80,0.07);
 }
 
-/* Argos — free sprite that bounces around the hero, ricocheting off the
-   wordmark letters + walls (position driven by the bounce script in index.html) */
-.hero-stage .argos-figure {
+/* Argos — the keeper who carries the light and guides the visitor.
+   The whole guide group is moved by the sim script (follows the sun/cursor). */
+.hero-stage .argos-guide {
   position: absolute;
   top: 0; left: 0;
-  width: clamp(175px, 27.5vw, 275px);
-  height: auto;
-  z-index: 2;
-  filter: drop-shadow(0 0 22px rgba(34, 230, 198, 0.28));
+  z-index: 3;
   pointer-events: none;
   will-change: transform;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-stage .argos-figure {
+  width: clamp(90px, 12vw, 150px);
+  height: auto;
+  filter: drop-shadow(0 0 22px rgba(34, 230, 198, 0.5));
+}
+.hero-stage .argos-bubble {
+  pointer-events: auto;
+  max-width: 220px;
+  margin-bottom: 8px;
+  background: rgba(13, 17, 23, 0.88);
+  border: 1px solid var(--cyan);
+  color: #eafff9;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  padding: 0.55rem 0.75rem;
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(34, 230, 198, 0.28);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.45s, transform 0.45s;
+  text-align: center;
+}
+.hero-stage .argos-bubble.show { opacity: 1; transform: translateY(0); }
+.hero-stage .argos-bubble a { color: var(--cyan); font-weight: 700; }
+
+/* highlighted letter in the Navicula wordmark — its light */
+.hero-stage .brandmark .word .lit {
+  -webkit-text-fill-color: var(--cyan);
+  color: var(--cyan);
+  text-shadow: 0 0 26px rgba(34, 230, 198, 0.95);
+}
+
+/* hero caption that turns the art into the proof */
+.hero-stage .hero-caption {
+  font-size: 0.9rem;
+  color: var(--gray-light);
+  max-width: 540px;
+  margin: 0 auto 1.6rem;
+  opacity: 0.92;
+}
+.hero-stage .hero-caption strong { color: var(--cyan); }
+.hero-stage .hero-caption .dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  margin-right: 6px;
+  vertical-align: middle;
 }
 
 /* hero copy below terminal */
-.hero-stage .hero-copy { position: relative; z-index: 2; text-align: center; margin-top: 2.4rem; width: 100%; max-width: 720px; }
+.hero-stage .hero-copy { position: relative; z-index: 2; text-align: center; margin-top: 0; width: 100%; max-width: 720px; }
 .hero-stage .hero-copy h1 { overflow-wrap: break-word; }
 .hero-stage .hero-copy h1 { font-size: 2.7rem; font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 1rem; }
 .hero-stage .hero-copy h1 .highlight { color: var(--cyan); }
@@ -499,9 +555,67 @@ footer a { color: var(--gray-light); }
   h2 { font-size: 1.8rem; }
   .hero { min-height: 70vh; padding-top: 6rem; }
   section { padding: 3rem 1.5rem; }
-  .hero-stage { min-height: 84vh; padding-top: 9rem; }
+  .hero-stage { min-height: 84vh; padding-top: 6rem; }
   .hero-stage .brandmark .word { font-size: clamp(2.4rem, 11vw, 7.5rem); }
   .hero-stage .hero-copy h1 { font-size: 2rem; }
   .hero-stage .hero-copy h1 .dt-break { display: none; }
   .hero-stage .eyebrow { font-size: 0.75rem; letter-spacing: 2px; }
 }
+
+/* === ROI SANDBOX — "The AI Bill Trap" === */
+.roi-wrap {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (max-width: 768px) { .roi-wrap { grid-template-columns: 1fr; } }
+
+.roi-controls {
+  background: var(--navy-light);
+  border: 1px solid var(--navy-mid);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+.roi-controls label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--gray-light);
+  margin-bottom: 1.5rem;
+}
+.roi-controls label:last-child { margin-bottom: 0; }
+.roi-controls .roi-out { float: right; color: var(--cyan); font-weight: 700; }
+.roi-controls input[type=range] { width: 100%; margin-top: 0.7rem; accent-color: var(--cyan); }
+
+.roi-viz {
+  background: var(--navy-light);
+  border: 1px solid var(--navy-mid);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+#roi-chart { width: 100%; height: 240px; display: block; }
+.roi-result { margin-top: 1rem; font-size: 0.95rem; line-height: 1.6; color: var(--gray-light); }
+.roi-result p { margin-bottom: 0.5rem; }
+.roi-result .big { font-size: 1.5rem; font-weight: 800; color: var(--cyan); }
+.roi-result .warn { color: var(--red-soft); font-weight: 700; }
+
+.roi-punch { text-align: center; font-size: 1.4rem; font-weight: 700; margin-top: 2.5rem; }
+.roi-punch .highlight { color: var(--cyan); }
+
+/* === SINGLE-CTA "Start the Experience" === */
+.btn-xl {
+  font-size: 1.15rem;
+  padding: 1rem 2.6rem;
+  box-shadow: 0 0 30px rgba(34, 230, 198, 0.4);
+}
+
+/* When the journey starts, Argos detaches into a fixed travelling guide */
+.argos-guide.fixed {
+  position: fixed;
+  left: auto; right: 18px; bottom: 18px; top: auto;
+  transform: none !important;
+  z-index: 60;
+  align-items: flex-end;
+}
+.argos-guide.fixed .argos-figure { width: clamp(68px, 9vw, 104px); }
+.argos-guide.fixed .argos-bubble { max-width: 240px; }
